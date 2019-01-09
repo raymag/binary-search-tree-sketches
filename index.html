@@ -1,0 +1,99 @@
+<!DOCTYPE html> <head> <title>Binary Search Tree Study</title> </head> <script>
+
+function Tree(){
+	this.root = null;
+}
+
+Tree.prototype.addValue = function(val){
+	if(this.root == null){
+		this.root = new Node(val);
+	}else{
+		this.root.addNode(new Node(val));
+	}
+}
+
+Tree.prototype.traverse = function(){
+	this.root.visit();
+}
+
+Tree.prototype.search = function(val){
+	return this.root.search(val);
+}
+
+function Node(val){
+	this.value = val;
+	this.left = null;
+	this.right = null;
+}
+
+Node.prototype.addNode = function(n){
+	if(n.value < this.value){
+		if(this.left == null){
+			this.left = n;
+		}else{
+			this.left.addNode(n);
+		}
+	}
+	else if(n.value > this.value){
+		if(this.right == null){
+			this.right = n;
+		}else{
+			this.right.addNode(n);
+		}
+	}
+}
+
+Node.prototype.visit = function(){
+	if(this.left != null){
+		this.left.visit();
+	}
+	console.log(this.value);
+	if(this.right != null){
+		this.right.visit();
+	}
+}
+
+Node.prototype.search = function(val){
+	if(val < this.value){
+		if(this.left != null){
+			return this.left.search(val);
+		}else{
+			console.log(val+" não encontrado!");
+			return false;
+		}
+	}
+	else if(val > this.value){
+		if(this.right != null){
+			return this.right.search(val);
+		}else{
+			console.log(val+" não encontrado!");
+			return false;
+		}
+	}
+	else if(val == this.value){
+		console.log(val+" encontrado!");
+		return true;
+	}
+}
+
+var tree = new Tree();
+
+// tree.addValue(5);
+// tree.addValue(7);
+// tree.addValue(6);
+// tree.addValue(8);
+
+for(var i=0;i<100;i++){
+	tree.addValue( Math.floor(Math.random() * 100000));
+} 
+
+console.log(tree);
+tree.traverse();
+// console.log(tree.search(19));
+// console.log(tree.search(0));
+// console.log(tree.search(66));
+for(var i=0;i<15;i++){
+	tree.search(Math.floor(Math.random()*100000));
+}
+</script>
+ </html>
